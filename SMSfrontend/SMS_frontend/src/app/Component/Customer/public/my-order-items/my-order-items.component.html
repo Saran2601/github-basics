@@ -1,0 +1,72 @@
+<!-- my-order-items.component.html -->
+
+<div class="mat-elevation-z8">
+  <ng-container *ngIf="myorders.length > 0; else noItems">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- Order ID Column -->
+      <ng-container matColumnDef="serialNumber">
+        <th class="sno" mat-header-cell *matHeaderCellDef> S.No </th>
+        <td mat-cell *matCellDef="let order; let i = index"> {{ i + 1 }} </td>
+      </ng-container>
+
+      <!-- Product Details Column -->
+      <ng-container matColumnDef="productDetails">
+        <th class="colsize" mat-header-cell *matHeaderCellDef> Product Details </th>
+        <td mat-cell *matCellDef="let order">
+          <ng-container *ngIf="order.items.length > 0">
+            <div *ngFor="let item of order.items">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title class="itemname">{{item.item.name}}</mat-card-title>
+                </mat-card-header>
+                <img class="image" matCardImage [src]="item.item.imgurl" alt="{{ item.name }} Image">
+              </mat-card>
+            </div>
+          </ng-container>
+        </td>
+      </ng-container>
+
+
+      <!-- Payment Column -->
+      <ng-container matColumnDef="estimatedAmount">
+        <th class="col" mat-header-cell *matHeaderCellDef> Estimated Amount </th>
+        <td mat-cell *matCellDef="let order"> {{ order.estimatedAmount | currency: 'LKR':'Rs.' }} </td>
+      </ng-container>
+
+      <!-- Customer Details Column -->
+      <ng-container matColumnDef="address">
+        <th class="col" mat-header-cell *matHeaderCellDef> Customer Details </th>
+        <td mat-cell *matCellDef="let order"> {{ order.userName }} <br>  {{ order.userEmail }} <br>{{ order.address }} <br> {{order.mobileNumber}}</td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="orderStatus">
+        <th class="col" mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let order"> {{ order.orderStatus}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="paymentType">
+        <th class="col" mat-header-cell *matHeaderCellDef> Payment Type </th>
+        <td mat-cell *matCellDef="let order"> {{ order.paymentType}} </td>
+      </ng-container>
+      <!-- Actions Column (Download) -->
+      <ng-container matColumnDef="actions">
+        <th class="col" mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let order">
+          <button mat-icon-button (click)="downloadOrder(order)">
+            <mat-icon>get_app</mat-icon>
+
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </ng-container>
+
+  <ng-template #noItems class="noitems">
+    <p>No items to display.</p>
+  </ng-template>
+</div>

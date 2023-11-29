@@ -1,0 +1,96 @@
+<div class="full-container">
+<mat-card class="mat-card">
+    <mat-card-header class="heading">
+        <mat-card-title>Sasika Mobiles</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="content">
+      <div class="form">
+      <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <input matInput placeholder="User Name" formControlName="name" required readonly>
+          <mat-error *ngIf="orderForm.get('name')?.hasError('required')">Username is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Email Address" formControlName="email" required readonly>
+          <mat-error *ngIf="orderForm.get('email')?.hasError('required')">Email Address is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Delivery Address" formControlName="address" required >
+          <mat-error *ngIf="orderForm.get('address')?.hasError('required')">Delivery Address is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Mobile Number" formControlName="mobileNumber" required>
+          <mat-error *ngIf="mobileNumberControl?.hasError('required')">Mobile number is required</mat-error>
+          <mat-error *ngIf="mobileNumberControl?.hasError('invalidMobileNumber')">Invalid mobile number</mat-error>
+        </mat-form-field>
+
+        <!-- Display selected item details -->
+        <div *ngIf="cartitems.length>0">
+          <mat-radio-group aria-label="Select an option" style="display: flex;flex-direction: column;" formControlName="payment_type">
+            <mat-radio-button value="Cash on Delivery">Cash on Delivery</mat-radio-button>
+            <mat-radio-button value="Online Payment" disabled="true">Online Payment<span><small style="color: red;"> (Not available)</small></span></mat-radio-button>
+          </mat-radio-group>
+          <!-- Display other item details as needed -->
+        </div>
+        <div class="btnn" ><button mat-raised-button color="primary"class="button" type="submit"  [disabled]="!orderForm.valid">Place Order</button></div>
+      </form>
+    </div>
+    <div class="order-summary">
+      <div class="card">
+      <mat-card>
+          <mat-card-header class="order_head">
+              <mat-card-title>Order Summary</mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content *ngFor="let cartitem of cartitems">
+            <mat-card class="item-card" appearance="outlined">
+              <div class="img">
+                <img matCardImage [src]="cartitem.item.imgurl" alt="Item Image" style="width: 100px; height: 150px;" ><br>
+              </div>
+              <div class="content_list">
+            <mat-card-header class="heading">
+              <mat-card-title class="mat-card-title">{{cartitem.item.name}} ({{cartitem.item.ram}}+{{cartitem.item.rom}})</mat-card-title>
+            </mat-card-header>
+
+              <mat-card-content class="mat-card-content">
+                <div class="spec">
+
+                 <p>{{cartitem.item.gen}} + {{cartitem.item.ram}} + {{cartitem.item.rom}} </p>
+                 <p>{{cartitem.item.features}} + {{cartitem.item.resolution}}</p>
+                <p>{{cartitem.item.screensize}} + {{cartitem.item.refreshrate}}</p>
+
+
+              </div>
+              </mat-card-content>
+
+            </div>
+            <div class="price">
+              <p style="color: green;">{{ cartitem.item.price | currency:'LKR':'Rs.' }}</p>
+            </div>
+            </mat-card>
+          </mat-card-content>
+          <hr>
+          <mat-card-content class="total">
+
+            <div class="tot"><div class="label"><p>Subtotal</p></div><div class="val"><p>{{subtotal | currency: 'LKR':'Rs.'}}</p></div></div>
+            <div class="tot"><div class="label"><p>Delivery Charge</p></div><div class="val"><p>{{delivery_charge | currency: 'LKR':'Rs.'}}</p></div></div>
+            <div class="tot"><div class="label"><p>Estimated Tax</p></div><div class="val"><p>{{estimated_tax | currency: 'LKR':'Rs.'}}</p></div></div>
+
+          </mat-card-content>
+          <hr>
+          <mat-card-footer class="footer">
+            <div class="amount"><div class="label"><p>Estimated Amount</p></div><div class="val"><p style="color: red;">{{ estimated_amount| currency:'LKR':'Rs.' }}</p></div></div>
+          </mat-card-footer>
+      </mat-card>
+    </div>
+
+    </div>
+
+    </mat-card-content>
+</mat-card>
+</div>
+
+

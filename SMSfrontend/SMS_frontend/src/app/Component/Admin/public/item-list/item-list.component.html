@@ -1,0 +1,36 @@
+<div class="content">
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="e.g. Redmi Note 8 Pro" #input>
+  </mat-form-field>
+
+  <div class="mat-elevation-z8" style="display: flex; flex-wrap: wrap; gap: 30px; flex-direction: row; width: 100%; height: 100%; padding: 30px;">
+    <ng-container *ngIf="filteredItems.length > 0; else noItems">
+      <!-- Loop through filteredItems instead of items -->
+      <mat-card *ngFor="let item of filteredItems" class="item-card" style="padding: 5px; margin-left: 20px;">
+        <div class="head">
+        <mat-card-header  class="heading">
+          <mat-card-title>{{ item.name }}</mat-card-title>
+        </mat-card-header><br>
+        <img matCardImage [src]="item.imgurl" alt="Item Image" style="width: 200px; height: 250px;" ><br>
+      </div>
+        <mat-card-content>
+          <mat-list>
+            <p>{{item.gen}} + {{item.ram}} + {{item.rom}} </p>
+            <p>{{item.features}} + {{item.resolution}}</p>
+            <p>{{item.screensize}} + {{item.refreshrate}}</p>
+           </mat-list>
+           <p>Cost: {{ item.cost | currency:'LKR':'Rs.' }}</p>
+          <p style="color: red;">Price: {{ item.price | currency:'LKR':'Rs.' }}</p>
+          <p>Quantity: {{ item.quantity }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <app-item-actions [item]="item"></app-item-actions>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+    <ng-template #noItems class="noitems">
+      <p>No items to display.</p>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,153 @@
+
+<form [formGroup]="itemForm">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ data.itemActionTitle }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="mat-action-row">
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            placeholder="e.g. Redmi Note 8 Pro"
+            formControlName="name"
+            [readonly]="data.readonlyFields.name"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cost</mat-label>
+          <input
+            matInput
+            placeholder="Cost"
+            formControlName="cost"
+            [readonly]="data.readonlyFields.cost"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Price</mat-label>
+          <input
+            matInput
+            placeholder="Price"
+            formControlName="price"
+            [readonly]="data.readonlyFields.price"
+            required
+          />
+        </mat-form-field>
+
+      </div>
+      <div class="mat-action-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Gen Type</mat-label>
+          <mat-select formControlName="gen" [attr.disabled]="data.readonlyFields.gen ? true : null">
+            <mat-option *ngFor="let gen of Generations" [value]="gen.value">
+              {{ gen.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>RAM</mat-label>
+          <mat-select formControlName="ram">
+            <mat-option *ngFor="let ram of RamSpecs" [value]="ram.value">
+              {{ ram.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Internal Memory</mat-label>
+          <mat-select formControlName="rom">
+            <mat-option *ngFor="let rom of RomSpecs" [value]="rom.value">
+              {{ rom.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="mat-action-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Screen Size</mat-label>
+          <mat-select formControlName="screensize">
+            <mat-option *ngFor="let size of Screens" [value]="size.value">
+              {{ size.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Screen Features</mat-label>
+          <mat-select formControlName="features">
+            <mat-option
+              *ngFor="let feature of Features"
+              [value]="feature.value"
+            >
+              {{ feature.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Screen Resolution</mat-label>
+          <mat-select formControlName="resolution">
+            <mat-option
+              *ngFor="let resolution of Resolution"
+              [value]="resolution.value"
+            >
+              {{ resolution.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="mat-action-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Refresh Rate</mat-label>
+          <mat-select formControlName="refreshrate">
+            <mat-option
+              *ngFor="let refreshrate of Refreshrate"
+              [value]="refreshrate.value"
+            >
+              {{ refreshrate.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>Mobile image</mat-label>
+          <input
+            matInput
+            placeholder="imgurl"
+            formControlName="imgurl"
+            [readonly]="data.readonlyFields.imgurl"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Quantity</mat-label>
+          <input
+            matInput
+            placeholder="Quantity"
+            formControlName="quantity"
+            [readonly]="data.readonlyFields.quantity"
+            required
+          />
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="start">
+      <button mat-stroked-button mat-dialog-close>Cancel</button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!itemForm.valid"
+        [mat-dialog-close]="itemForm.value"
+        cdkFocusInitial
+      >
+        {{ data.submitButtonLabel }}
+      </button>
+    </mat-card-actions>
+    <mat-card-footer> </mat-card-footer>
+  </mat-card>
+  <mat-divider></mat-divider>
+</form>

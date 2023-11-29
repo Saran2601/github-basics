@@ -1,0 +1,71 @@
+  <div class="cart-items">
+  <div class="mat-elevation-z8" >
+    <ng-container *ngIf="cartitems.length > 0; else noItems">
+      <!-- Loop through filteredItems instead of items -->
+      <mat-card *ngFor="let cartitem of cartitems" class="item-card" appearance="outlined" >
+        <mat-checkbox  [checked]="isChecked(cartitem)" (click)="toggleSelection(cartitem)" ></mat-checkbox>
+        <div class="img">
+          <img matCardImage [src]="cartitem.item.imgurl" alt="Item Image" style="width: 200px; height: 250px;" ><br>
+        </div>
+        <div class="content_list">
+        <div class="name">
+      <mat-card-header class="heading">
+        <mat-card-title>{{ cartitem.item.name}} ({{cartitem.item.ram}}+{{cartitem.item.rom}})</mat-card-title>
+      </mat-card-header>
+      <div class="actions">
+        <mat-card-actions>
+          <app-remove-item-cart [item]="cartitem.item"  (itemRemoved)="onItemRemoved($event)"></app-remove-item-cart>
+          <app-add-quantity [item]="cartitem.item" (quantityChanged)="onQuantityChanged(cartitem, $event)"></app-add-quantity>
+        </mat-card-actions>
+      </div>
+    </div>
+        <mat-card-content>
+          <div class="spec">
+            <div class="list">
+
+              <div class="c"><mat-icon>done</mat-icon><p>{{cartitem.item.gen}} + {{cartitem.item.ram}} + {{cartitem.item.rom}} </p></div>
+              <div class="c"><mat-icon>done</mat-icon><p>{{cartitem.item.features}}</p></div>
+              <div class="c"><mat-icon>done</mat-icon><p>{{cartitem.item.screensize}}</p></div>
+
+          </div>
+          <div class="list">
+
+            <div class="c"><mat-icon>done</mat-icon><p>{{cartitem.item.resolution}} </p></div>
+            <div class="c"><mat-icon>done</mat-icon><p>{{cartitem.item.refreshrate}}</p></div>
+
+          </div>
+        </div>
+        </mat-card-content>
+
+      </div>
+      <div class="price">
+        <p style="color: green;">{{ cartitem.item.price | currency:'LKR':'Rs.' }}</p>
+      </div>
+      </mat-card>
+    </ng-container>
+    <ng-template #noItems class="noitems">
+      <p>No items to display.</p>
+    </ng-template>
+
+  </div>
+  <div class="checkout">
+    <mat-card >
+      <mat-card-header class="header">
+        <mat-card-title>Checkout</mat-card-title>
+      </mat-card-header>
+      <mat-card-content *ngIf="selectedItems.length > 0" class="selected-content">
+        <div *ngFor="let selectedItem of selectedItems">
+          <p>{{ selectedItem.item.name }} - {{ selectedItem.item.price | currency:'LKR':'Rs.' }}</p>
+        </div>
+        <mat-card-actions>
+          <app-order-button [items]="selectedItems"></app-order-button>
+        </mat-card-actions>
+      </mat-card-content>
+      <div *ngIf="selectedItems.length === 0" class="noitems">
+        <p>No items selected for checkout.</p>
+      </div>
+    </mat-card>
+
+  </div>
+</div>
+

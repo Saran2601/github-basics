@@ -1,0 +1,7 @@
+<div class="asl" *ngIf="!loading">
+  <asl-google-signin-button></asl-google-signin-button>
+  <div><p>Continue with Google</p></div>
+</div>
+<div class="overlay" *ngIf="loading">
+  <app-progressspinner></app-progressspinner>
+</div>

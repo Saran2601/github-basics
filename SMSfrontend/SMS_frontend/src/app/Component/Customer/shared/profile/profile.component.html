@@ -1,0 +1,15 @@
+<!-- app-profile.component.html -->
+
+<div class="profile" [matMenuTriggerFor]="profileMenu">
+  <mat-icon>account_circle</mat-icon>
+  <span>{{username}}</span>
+</div>
+
+<mat-menu #profileMenu="matMenu">
+  <app-my-wishlist-button></app-my-wishlist-button>
+  <app-my-cart-button></app-my-cart-button>
+  <app-my-orders-button></app-my-orders-button>
+  <app-logout></app-logout>
+
+  <!-- Add other functionalities as needed -->
+</mat-menu>

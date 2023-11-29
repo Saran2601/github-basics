@@ -1,0 +1,51 @@
+<div class="search">
+  <app-search></app-search>
+</div>
+  <div class="mat-elevation-z8" >
+    <ng-container *ngIf="filteredItems.length > 0; else noItems">
+      <!-- Loop through filteredItems instead of items -->
+      <mat-card *ngFor="let item of filteredItems" class="item-card" appearance="outlined">
+        <div class="img">
+          <img matCardImage [src]="item.imgurl" alt="Item Image" style="width: 200px; height: 250px;" ><br>
+        </div>
+        <div class="content_list">
+        <div class="name">
+      <mat-card-header class="heading">
+        <mat-card-title>{{ item.name}} ({{item.ram}}+{{item.rom}})</mat-card-title>
+      </mat-card-header>
+      <div class="actions">
+        <mat-card-actions>
+          <app-my-wishlist [item]="item"></app-my-wishlist>
+          <app-my-cart [item]="item" (itemAdded)="onItemAdded($event)"></app-my-cart>
+         
+        </mat-card-actions>
+      </div>
+    </div>
+        <mat-card-content>
+          <div class="spec">
+            <div class="list">
+
+              <div class="c"><mat-icon>done</mat-icon><p>{{item.gen}} + {{item.ram}} + {{item.rom}} </p></div>
+              <div class="c"><mat-icon>done</mat-icon><p>{{item.features}}</p></div>
+              <div class="c"><mat-icon>done</mat-icon><p>{{item.screensize}}</p></div>
+
+          </div>
+          <div class="list">
+
+            <div class="c"><mat-icon>done</mat-icon><p>{{item.resolution}} </p></div>
+            <div class="c"><mat-icon>done</mat-icon><p>{{item.refreshrate}}</p></div>
+
+          </div>
+        </div>
+        </mat-card-content>
+
+      </div>
+      <div class="price">
+        <p style="color: green;">{{ item.price | currency:'LKR':'Rs.' }}</p>
+      </div>
+      </mat-card>
+    </ng-container>
+    <ng-template #noItems class="noitems">
+      <p>No items to display.</p>
+    </ng-template>
+  </div>

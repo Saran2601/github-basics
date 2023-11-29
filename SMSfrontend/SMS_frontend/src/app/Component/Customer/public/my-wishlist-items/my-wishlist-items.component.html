@@ -1,0 +1,46 @@
+  <div class="mat-elevation-z8" >
+    <ng-container *ngIf="wishitems.length > 0; else noItems">
+      <mat-card *ngFor="let item of wishitems" class="item-card" appearance="outlined">
+        <div class="img">
+          <img matCardImage [src]="item.item.imgurl" alt="Item Image" style="width: 200px; height: 250px;" ><br>
+        </div>
+        <div class="content_list">
+        <div class="name">
+      <mat-card-header class="heading">
+        <mat-card-title>{{ item.item.name}} ({{item.item.ram}}+{{item.item.rom}})</mat-card-title>
+      </mat-card-header>
+      <div class="actions">
+        <mat-card-actions>
+          <app-my-cart [item]="item.item"></app-my-cart>
+        </mat-card-actions>
+      </div>
+    </div>
+        <mat-card-content>
+          <div class="spec">
+            <div class="list">
+
+              <div class="c"><mat-icon>done</mat-icon><p>{{item.item.gen}} + {{item.item.ram}} + {{item.item.rom}} </p></div>
+              <div class="c"><mat-icon>done</mat-icon><p>{{item.item.features}}</p></div>
+              <div class="c"><mat-icon>done</mat-icon><p>{{item.item.screensize}}</p></div>
+
+          </div>
+          <div class="list">
+
+            <div class="c"><mat-icon>done</mat-icon><p>{{item.item.resolution}} </p></div>
+            <div class="c"><mat-icon>done</mat-icon><p>{{item.item.refreshrate}}</p></div>
+
+          </div>
+        </div>
+        </mat-card-content>
+
+      </div>
+      <div class="price">
+        <p style="color: green;">{{ item.item.price | currency:'LKR':'Rs.' }}</p>
+      </div>
+      </mat-card>
+    </ng-container>
+    <ng-template #noItems class="noitems">
+      <p>No items to display.</p>
+    </ng-template>
+  </div>
+

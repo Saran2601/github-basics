@@ -1,0 +1,10 @@
+<div class="side-menu">
+  <mat-nav-list>
+    <mat-list-item *ngFor="let menuItem of menuItems">
+      <div class="clickable-div" (click)="menuItem.name && performselect(menuItem.name)" routerLink="/dashboard/mobiles">
+        <img [src]="menuItem.matIcon" alt="{{menuItem.name}} icon" class="icon-image">
+        <span>{{menuItem.name}}</span>
+      </div>
+    </mat-list-item>
+  </mat-nav-list>
+</div>

@@ -1,0 +1,59 @@
+<div class="login-container">
+  <mat-card class="my-card">
+    <mat-card-header>
+      <mat-card-title class="heading">Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="my-form" [formGroup]="loginForm">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required />
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')"
+            >Email is required</mat-error
+          >
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')"
+            >Invalid email format</mat-error
+          >
+          </mat-form-field>
+
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" required />
+            <mat-icon matSuffix (click)="togglePasswordVisibility()">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            <mat-error *ngIf="!hidePassword && loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+            <mat-error *ngIf="!hidePassword && loginForm.get('password')?.hasError('pattern')">Invalid password format</mat-error>
+          </mat-form-field>
+
+          <small class="forgot-password" (click)="openForgetPasswordDialog()">Forgot Password?</small>
+
+        <mat-card-actions>
+          <button
+            mat-raised-button
+            (click)="login()"
+            color="primary"
+            [disabled]="!loginForm.valid"
+          >
+            Login
+          </button>
+        </mat-card-actions>
+        <p>Don't have an account? <a routerLink="/user/signup">Sign up</a></p>
+        <br />
+        <div class="or">
+          <hr style="width: 100%" />
+          <p>or</p>
+          <hr style="width: 100%" />
+        </div>
+        <br />
+
+        <div>
+          <app-asl></app-asl>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <div class="overlay" *ngIf="loading">
+    <app-progressspinner></app-progressspinner>
+  </div>
+</div>
+
+
